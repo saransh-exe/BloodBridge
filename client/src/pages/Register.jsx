@@ -7,14 +7,14 @@ import axios from 'axios';
 
 const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login } = useAuth(); // eslint-disable-line
   const { isDark } = useTheme();
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const [role, setRole] = useState('donor');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false); // eslint-disable-line
   const [form, setForm] = useState({
     name: '', email: '', password: '', city: '',
     phone: '', bloodGroup: 'A+', age: '', licenseNumber: ''

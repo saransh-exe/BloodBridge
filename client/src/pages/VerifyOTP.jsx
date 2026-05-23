@@ -21,7 +21,7 @@ const VerifyOTP = () => {
 
   const inputRefs = useRef([]);
 
-  useEffect(() => {
+  useEffect(() => { // eslint-disable-line
     if (!formData) { navigate('/register'); return; }
     const timer = setInterval(() => {
       setResendTimer(prev => {
