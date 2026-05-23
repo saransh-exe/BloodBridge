@@ -7,7 +7,14 @@ require('dotenv').config();
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://bloodbridge.vercel.app',
+    'https://*.vercel.app'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 // Routes
 const authRoutes = require('./routes/authRoutes');

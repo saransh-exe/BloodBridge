@@ -26,7 +26,7 @@ const Register = () => {
   const handleSubmit = async () => {
   setLoading(true); setError('');
   try {
-    await axios.post('http://localhost:5000/api/otp/send', {
+    await axios.post('https://bloodbridge-api-4nyf.onrender.com/api/otp/send', {
       email: form.email,
       name: form.name
     });

@@ -96,13 +96,13 @@ const VerifyOTP = () => {
     if (otpString.length !== 6) { setError('Please enter all 6 digits'); return; }
     setLoading(true); setError('');
     try {
-      await axios.post('http://localhost:5000/api/otp/verify', {
+      await axios.post('https://bloodbridge-api-4nyf.onrender.com/api/otp/verify', {
         email: formData.email,
         otp: otpString
       });
 
       // Now register the user
-      const res = await axios.post('http://localhost:5000/api/auth/register', {
+      const res = await axios.post('https://bloodbridge-api-4nyf.onrender.com/api/auth/register', {
         ...formData, role
       });
 
