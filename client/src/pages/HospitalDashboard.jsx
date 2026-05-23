@@ -15,7 +15,7 @@ const HospitalDashboard = () => {
   const [activeTab, setActiveTab] = useState('requests');
   const [showForm, setShowForm] = useState(false);
   const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true); // eslint-disable-line
+  const [loading, setLoading] = useState(true); // eslint-disable-line no-unused-vars
   const [toast, setToast] = useState('');
 
   const showToast = (msg) => {
@@ -43,7 +43,7 @@ const HospitalDashboard = () => {
       showToast('⚠️ ' + (err.response?.data?.message || 'Something went wrong'));
     }
   };
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
   const handleStatusUpdate = async (id, status) => {
     try {
       await API.put(`/requests/status/${id}`, { status });
