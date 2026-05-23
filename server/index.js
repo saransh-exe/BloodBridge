@@ -8,11 +8,7 @@ const app = express();
 
 app.use(helmet());
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://bloodbridge.vercel.app',
-    'https://*.vercel.app'
-  ],
+  origin: '*',
   credentials: true
 }));
 app.use(express.json());
