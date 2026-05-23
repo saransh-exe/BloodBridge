@@ -26,15 +26,15 @@ const Register = () => {
   const handleSubmit = async () => {
   setLoading(true); setError('');
   try {
-    await axios.post('https://bloodbridge-api-4nyf.onrender.com/api/otp/send', {
-      email: form.email,
-      name: form.name
-    });
-    navigate('/verify-otp', {
-      state: { formData: form, role }
-    });
+    const res = await axios.post(
+      'https://bloodbridge-api-4nyf.onrender.com/api/auth/register',
+      { ...form, role },
+      { timeout: 30000 }
+    );
+    login(res.data.user, res.data.token);
+    navigate(role === 'donor' ? '/donor-dashboard' : '/hospital-dashboard');
   } catch (err) {
-    setError(err.response?.data?.message || 'Failed to send OTP');
+    setError(err.response?.data?.message || 'Registration failed');
   }
   setLoading(false);
 };

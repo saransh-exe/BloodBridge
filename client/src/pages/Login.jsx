@@ -23,14 +23,15 @@ const Login = () => {
   const handleSubmit = async () => {
   setLoading(true); setError('');
   try {
-    const res = await axios.post('https://bloodbridge-api-4nyf.onrender.com/api/auth/login', form);
+    const res = await axios.post(
+      'https://bloodbridge-api-4nyf.onrender.com/api/auth/login',
+      form,
+      { timeout: 30000 }
+    );
     login(res.data.user, res.data.token);
-    setSuccess(true);
-    setTimeout(() => {
-      navigate(res.data.user.role === 'donor' ? '/donor-dashboard' : '/hospital-dashboard');
-    }, 1500);
+    navigate(res.data.user.role === 'donor' ? '/donor-dashboard' : '/hospital-dashboard');
   } catch (err) {
-    setError(err.response?.data?.message || 'Invalid email or password');
+    setError(err.response?.data?.message || 'Login failed');
   }
   setLoading(false);
 };
