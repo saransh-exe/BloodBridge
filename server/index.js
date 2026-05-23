@@ -18,7 +18,12 @@ app.use((req, res, next) => {
   }
 });
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://blood-bridge-sage.vercel.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(express.json());
 
