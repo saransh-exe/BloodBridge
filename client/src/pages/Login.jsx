@@ -9,7 +9,7 @@ const PHRASES = ['Save a life today.', 'Every drop matters.', 'Be someone\'s her
 
 const Login = () => {
   const navigate = useNavigate();
- const { isDark } = useTheme(); // eslint-disable-line
+ const { isDark } = useTheme(); // eslint-disable-line no-unused-vars
   const { login } = useAuth();
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
