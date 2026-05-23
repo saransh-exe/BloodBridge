@@ -6,31 +6,41 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(helmet());
+// Fix CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
 app.use(cors());
+app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(express.json());
-// Routes
-const authRoutes = require('./routes/authRoutes');
-app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: '🩸 BloodBridge API is running!' });
 });
+
+const authRoutes = require('./routes/authRoutes');
 const requestRoutes = require('./routes/requestRoutes');
-app.use('/api/requests', requestRoutes);
 const otpRoutes = require('./routes/otpRoutes');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/requests', requestRoutes);
 app.use('/api/otp', otpRoutes);
 
 const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(MONGO_URI, {
-  serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 45000,
-})
+mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB Connected Successfully!');
-    app.listen(5000, () => {
-      console.log('🚀 Server running on port 5000');
+    app.listen(process.env.PORT || 5000, () => {
+      console.log(`🚀 Server running on port ${process.env.PORT || 5000}`);
     });
   })
   .catch((error) => {
