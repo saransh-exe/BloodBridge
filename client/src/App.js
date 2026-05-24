@@ -8,6 +8,7 @@ import DonorDashboard from './pages/DonorDashboard';
 import HospitalDashboard from './pages/HospitalDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import VerifyOTP from './pages/VerifyOTP';
+import PendingApproval from './pages/PendingApproval';
 
 function App() {
   const { user } = useAuth();
@@ -25,6 +26,7 @@ function App() {
           <ProtectedRoute role="hospital"><HospitalDashboard /></ProtectedRoute>
         } />
         <Route path="/verify-otp" element={<VerifyOTP />} />
+        <Route path="/pending-approval" element={<PendingApproval />} />
       </Routes>
     </Router>
   );

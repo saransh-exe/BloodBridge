@@ -23,9 +23,14 @@ const userSchema = new mongoose.Schema({
     enum: ['donor', 'hospital'],
     required: true
   },
-  isVerified: {
+ isApproved: {
   type: Boolean,
   default: false
+},
+approvalStatus: {
+  type: String,
+  enum: ['pending', 'approved', 'rejected'],
+  default: 'pending'
 },
   // Donor specific fields
   bloodGroup: {

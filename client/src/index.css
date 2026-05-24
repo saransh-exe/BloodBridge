@@ -106,3 +106,11 @@ body {
   0%, 100% { box-shadow: 0 0 10px rgba(193,18,31,0.5), 0 0 20px rgba(193,18,31,0.2); }
   50% { box-shadow: 0 0 25px rgba(193,18,31,0.9), 0 0 50px rgba(193,18,31,0.4); }
 }
+select option {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+select {
+  color: var(--text-primary);
+}
