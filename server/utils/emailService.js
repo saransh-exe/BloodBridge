@@ -1,11 +1,23 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+transporter.verify((error, success) => {
+  if (error) {
+    console.log('Email error:', error);
+  } else {
+    console.log('Email server ready!');
+  }
 });
 
 const sendBloodRequestEmail = async (donorEmail, donorName, hospitalName, bloodGroup, city, urgency, requestId) => {
