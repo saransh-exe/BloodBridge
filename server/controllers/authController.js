@@ -38,19 +38,19 @@ const register = async (req, res) => {
       });
     }
 
-    res.status(201).json({
-      success: true,
-      token: generateToken(user._id),
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        bloodGroup: user.bloodGroup,
-        city: user.city,
-        isVerified: user.isVerified
-      }
-    });
+    res.json({
+  success: true,
+  token: generateToken(user._id),
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    bloodGroup: user.bloodGroup,
+    city: user.city,
+    isVerified: user.isVerified
+  }
+});
 
   } catch (error) {
     res.status(500).json({ message: error.message });

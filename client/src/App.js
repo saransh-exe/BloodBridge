@@ -17,7 +17,15 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={user ? <Navigate to={user.role === 'donor' ? '/donor-dashboard' : '/hospital-dashboard'} /> : <Login />} />
+        <Route path="/login" element={
+  user
+    ? user.role === 'donor'
+      ? <Navigate to="/donor-dashboard" />
+      : user.role === 'hospital'
+        ? <Navigate to="/hospital-dashboard" />
+        : <Navigate to="/" />
+    : <Login />
+} />
         <Route path="/register" element={user ? <Navigate to={user.role === 'donor' ? '/donor-dashboard' : '/hospital-dashboard'} /> : <Register />} />
         <Route path="/donor-dashboard" element={
           <ProtectedRoute role="donor"><DonorDashboard /></ProtectedRoute>
