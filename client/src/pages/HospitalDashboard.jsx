@@ -63,7 +63,8 @@ const HospitalDashboard = () => {
     const ctx = canvas.getContext('2d');
     let W = window.innerWidth, H = window.innerHeight;
     canvas.width = W; canvas.height = H;
-    const particles = Array.from({ length: 50 }, () => ({
+    const isMobile = window.innerWidth < 768;
+const particles = Array.from({ length: isMobile ? 30 : 120 }, (_, i) => ({
       x: Math.random() * W, y: Math.random() * H,
       vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
       r: Math.random() * 1.5 + 0.3, o: Math.random() * 0.25 + 0.05,
@@ -147,7 +148,7 @@ const HospitalDashboard = () => {
         style={{ background: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.03) 3px,rgba(0,0,0,0.03) 4px)', opacity: 0.3 }} />
 
       {/* Sidebar */}
-      <div className="fixed left-0 top-0 bottom-0 w-64 z-40 flex flex-col"
+      <div className="hidden md:flex fixed left-0 top-0 bottom-0 w-64 z-40 flex-col"
         style={{ background: 'var(--sidebar-bg)', borderRight: '1px solid var(--sidebar-border)', backdropFilter: 'blur(30px)' }}>
 
         <div className="p-6 border-b" style={{ borderColor: 'var(--sidebar-border)' }}>
@@ -208,7 +209,7 @@ const HospitalDashboard = () => {
       </div>
 
       {/* Main */}
-      <div className="ml-64 relative z-20 p-8">
+      <div className="ml-0 md:ml-64 relative z-20 p-4 md:p-8">
 
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -230,7 +231,7 @@ const HospitalDashboard = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
   { icon: '🩸', val: requests.filter(r => r.status === 'Open').length.toString(), label: 'Active Requests', color: '#C1121F' },
   { icon: '👥', val: requests.reduce((acc, r) => acc + (r.acceptedDonors?.length || 0), 0).toString(), label: 'Matched Donors', color: '#44aaff' },
@@ -371,8 +372,31 @@ const HospitalDashboard = () => {
           </div>
         </div>
       </div>
+   {/* Mobile Bottom Nav */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden"
+        style={{ background: 'var(--sidebar-bg)', borderTop: '1px solid var(--border-color)', backdropFilter: 'blur(20px)' }}>
+        {[
+          { id: 'requests', icon: '🩸', label: 'Requests' },
+          { id: 'history', icon: '📋', label: 'History' },
+          { id: 'profile', icon: '👤', label: 'Profile' },
+        ].map(item => (
+          <button key={item.id} onClick={() => setActiveTab(item.id)}
+            className="flex-1 flex flex-col items-center py-3 text-xs transition-all"
+            style={activeTab === item.id ? { color: '#C1121F' } : { color: 'var(--text-secondary)' }}>
+            <span className="text-xl mb-1">{item.icon}</span>
+            {item.label}
+          </button>
+        ))}
+        <button onClick={handleLogout}
+          className="flex-1 flex flex-col items-center py-3 text-xs"
+          style={{ color: 'var(--text-secondary)' }}>
+          <span className="text-xl mb-1">🚪</span>
+          Logout
+        </button>
+      </div>
+
     </div>
   );
 };
 
-export default HospitalDashboard;
+export default DonorDashboard;
