@@ -232,11 +232,11 @@ const HospitalDashboard = () => {
         {/* Stats */}
         <div className="grid grid-cols-4 gap-4 mb-8">
           {[
-            { icon: '🩸', val: '3', label: 'Active Requests', color: '#C1121F' },
-            { icon: '👥', val: '15', label: 'Matched Donors', color: '#44aaff' },
-            { icon: '✅', val: '1', label: 'Fulfilled Today', color: '#44ff88' },
-            { icon: '⏳', val: '2', label: 'Pending', color: '#ffaa00' },
-          ].map((s, i) => (
+  { icon: '🩸', val: requests.filter(r => r.status === 'Open').length.toString(), label: 'Active Requests', color: '#C1121F' },
+  { icon: '👥', val: requests.reduce((acc, r) => acc + (r.acceptedDonors?.length || 0), 0).toString(), label: 'Matched Donors', color: '#44aaff' },
+  { icon: '✅', val: requests.filter(r => r.status === 'Fulfilled').length.toString(), label: 'Fulfilled', color: '#44ff88' },
+  { icon: '⏳', val: requests.filter(r => r.status === 'Open').length.toString(), label: 'Pending', color: '#ffaa00' },
+].map((s, i) => (
             <div key={i} className="rounded-2xl p-5 transition-all" style={cardStyle}
               onMouseEnter={e => { e.currentTarget.style.border = `1px solid ${s.color}40`; e.currentTarget.style.transform = 'translateY(-4px)'; }}
               onMouseLeave={e => { e.currentTarget.style.border = '1px solid var(--card-border)'; e.currentTarget.style.transform = 'none'; }}>
