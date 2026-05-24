@@ -28,9 +28,28 @@ const Login = () => {
       form,
       { timeout: 30000 }
     );
+
+    if (res.data.pending) {
+      navigate('/pending-approval');
+      return;
+    }
+
     login(res.data.user, res.data.token);
-    navigate(res.data.user.role === 'donor' ? '/donor-dashboard' : '/hospital-dashboard');
+
+    // Strictly check role
+    if (res.data.user.role === 'donor') {
+      navigate('/donor-dashboard');
+    } else if (res.data.user.role === 'hospital') {
+      navigate('/hospital-dashboard');
+    } else {
+      navigate('/');
+    }
+
   } catch (err) {
+    if (err.response?.data?.pending) {
+      navigate('/pending-approval');
+      return;
+    }
     setError(err.response?.data?.message || 'Login failed');
   }
   setLoading(false);
