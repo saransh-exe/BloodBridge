@@ -16,12 +16,27 @@ const register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists with this email' });
     }
 
+    // Hospitals need approval
+    const isApproved = role === 'donor' ? true : false;
+    const approvalStatus = role === 'donor' ? 'approved' : 'pending';
+
     const user = await User.create({
       name, email, password, role,
       bloodGroup, age, phone, city,
       hospitalName, licenseNumber,
-      isVerified: true
+      isVerified: true,
+      isApproved,
+      approvalStatus
     });
+
+    // If hospital - don't give dashboard access yet
+    if (role === 'hospital') {
+      return res.status(201).json({
+        success: true,
+        pending: true,
+        message: 'Your hospital registration is under review. You will be approved within 24 hours!'
+      });
+    }
 
     res.status(201).json({
       success: true,
@@ -36,6 +51,7 @@ const register = async (req, res) => {
         isVerified: user.isVerified
       }
     });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -46,16 +62,22 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Block unapproved hospitals
+    if (user.role === 'hospital' && !user.isApproved) {
+      return res.status(403).json({
+        message: 'Your hospital is pending approval. Please wait up to 24 hours.',
+        pending: true
+      });
     }
 
     res.json({
@@ -67,7 +89,8 @@ const login = async (req, res) => {
         email: user.email,
         role: user.role,
         bloodGroup: user.bloodGroup,
-        city: user.city
+        city: user.city,
+        isVerified: user.isVerified
       }
     });
 
@@ -75,5 +98,4 @@ const login = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 module.exports = { register, login };

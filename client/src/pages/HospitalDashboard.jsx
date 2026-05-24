@@ -34,15 +34,15 @@ const HospitalDashboard = () => {
   };
 
   const handlePostRequest = async () => {
-    try {
-      await API.post('/requests/create', newRequest);
-      showToast('✅ Blood request posted! Matching donors are being notified.');
-      setShowForm(false);
-      fetchRequests();
-    } catch (err) {
-      showToast('⚠️ ' + (err.response?.data?.message || 'Something went wrong'));
-    }
-  };
+  try {
+    await API.post('/requests/create', newRequest);
+    setShowForm(false);
+    showToast('✅ Blood request posted! Matching donors are being notified.');
+    fetchRequests();
+  } catch (err) {
+    showToast('⚠️ ' + (err.response?.data?.message || 'Something went wrong'));
+  }
+};
 // eslint-disable-next-line no-unused-vars
   const handleStatusUpdate = async (id, status) => {
     try {

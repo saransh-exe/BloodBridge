@@ -23,7 +23,7 @@ const Register = () => {
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async () => {
+ const handleSubmit = async () => {
   setLoading(true); setError('');
   try {
     const res = await axios.post(
@@ -31,6 +31,13 @@ const Register = () => {
       { ...form, role },
       { timeout: 30000 }
     );
+
+    if (res.data.pending) {
+      // Hospital pending approval
+      navigate('/pending-approval');
+      return;
+    }
+
     login(res.data.user, res.data.token);
     navigate(role === 'donor' ? '/donor-dashboard' : '/hospital-dashboard');
   } catch (err) {
