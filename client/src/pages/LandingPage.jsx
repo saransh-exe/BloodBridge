@@ -211,129 +211,325 @@ const LandingPage = () => {
         style={{ background: 'repeating-linear-gradient(0deg,transparent,transparent 3px,var(--scanline) 3px,var(--scanline) 4px)', opacity: 0.4 }} />
 
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-10 py-5"
-        style={{ background: 'var(--nav-bg)', backdropFilter: 'blur(30px)', borderBottom: '1px solid var(--border-color)' }}>
-        <div className="flex items-center gap-3"
-          style={{ fontFamily: "'Playfair Display', serif", fontSize: '20px', fontWeight: 900, letterSpacing: '-0.5px' }}>
-          <div className="relative w-9 h-9 rounded-full flex items-center justify-center text-base"
-            style={{ background: '#C1121F', boxShadow: '0 0 20px rgba(193,18,31,0.6)' }}>
-            🩸
-            <div className="absolute inset-0 rounded-full animate-ping"
-              style={{ border: '1px solid rgba(193,18,31,0.5)', animationDuration: '2s' }} />
-          </div>
-          BloodBridge
-        </div>
-        <div className="flex gap-3 items-center">
-          <ThemeToggle />
-          <button onClick={() => navigate('/login')}
-            className="px-5 py-2 rounded-full text-sm transition-all"
-            style={{ border: '1px solid var(--border-color)', color: 'var(--text-secondary)', background: 'none' }}
-            onMouseEnter={e => { e.target.style.borderColor = 'rgba(193,18,31,0.5)'; e.target.style.color = 'var(--text-primary)'; }}
-            onMouseLeave={e => { e.target.style.borderColor = 'var(--border-color)'; e.target.style.color = 'var(--text-secondary)'; }}>
-            Login
-          </button>
-          <button onClick={() => navigate('/register')}
-            className="px-6 py-2 rounded-full text-sm font-medium text-white relative overflow-hidden transition-all"
-            style={{ background: '#C1121F', boxShadow: '0 0 20px rgba(193,18,31,0.4)' }}
-            onMouseEnter={e => e.currentTarget.style.boxShadow = '0 0 40px rgba(193,18,31,0.8), 0 0 80px rgba(193,18,31,0.3)'}
-            onMouseLeave={e => e.currentTarget.style.boxShadow = '0 0 20px rgba(193,18,31,0.4)'}>
-            Join Now
-          </button>
-        </div>
-      </nav>
+      {/* Navbar */}
+<nav
+  className="fixed top-0 left-0 w-full z-50"
+  style={{
+    background: 'var(--nav-bg)',
+    backdropFilter: 'blur(30px)',
+    borderBottom: '1px solid var(--border-color)'
+  }}
+>
+  <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 md:px-10 py-4">
 
+    {/* Logo */}
+    <div
+      className="flex items-center gap-2 md:gap-3"
+      style={{
+        fontFamily: "'Playfair Display', serif",
+        fontWeight: 900,
+        letterSpacing: '-0.5px'
+      }}
+    >
+      <div
+        className="relative w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-base"
+        style={{
+          background: '#C1121F',
+          boxShadow: '0 0 20px rgba(193,18,31,0.6)'
+        }}
+      >
+        🩸
+
+        <div
+          className="absolute inset-0 rounded-full animate-ping"
+          style={{
+            border: '1px solid rgba(193,18,31,0.5)',
+            animationDuration: '2s'
+          }}
+        />
+      </div>
+
+      <span
+        className="text-lg sm:text-xl md:text-2xl"
+        style={{ color: 'var(--text-primary)' }}
+      >
+        BloodBridge
+      </span>
+    </div>
+
+    {/* Right Side */}
+    <div className="flex items-center gap-2 md:gap-4">
+
+      <ThemeToggle />
+
+      <button
+        onClick={() => navigate('/login')}
+        className="px-3 sm:px-4 md:px-5 py-2 rounded-full text-xs sm:text-sm transition-all duration-300"
+        style={{
+          border: '1px solid var(--border-color)',
+          color: 'var(--text-secondary)',
+          background: 'transparent'
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.borderColor = 'rgba(193,18,31,0.5)';
+          e.currentTarget.style.color = 'var(--text-primary)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.borderColor = 'var(--border-color)';
+          e.currentTarget.style.color = 'var(--text-secondary)';
+        }}
+      >
+        Login
+      </button>
+
+      <button
+        onClick={() => navigate('/register')}
+        className="px-4 sm:px-5 md:px-6 py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-medium text-white transition-all duration-300"
+        style={{
+          background: '#C1121F',
+          boxShadow: '0 0 20px rgba(193,18,31,0.4)'
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.boxShadow =
+            '0 0 40px rgba(193,18,31,0.8)';
+          e.currentTarget.style.transform = 'translateY(-2px)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.boxShadow =
+            '0 0 20px rgba(193,18,31,0.4)';
+          e.currentTarget.style.transform = 'none';
+        }}
+      >
+        Join Now
+      </button>
+
+    </div>
+  </div>
+</nav>
       {/* Hero */}
-      <section className="min-h-screen flex flex-col items-center justify-center relative z-20 px-8 pt-24 pb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs mb-8 animate-fadeInUp"
-          style={{ border: '1px solid rgba(193,18,31,0.2)', background: 'rgba(193,18,31,0.05)', color: 'var(--text-secondary)', letterSpacing: '1px' }}>
-          <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"
-            style={{ boxShadow: '0 0 8px #C1121F' }} />
-          LIVE · REAL-TIME DONATION NETWORK · INDIA
+<section className="min-h-screen flex flex-col items-center justify-center relative z-20 px-4 sm:px-6 md:px-8 pt-28 md:pt-24 pb-20">
+
+  {/* Badge */}
+  <div
+    className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[10px] sm:text-xs mb-8 animate-fadeInUp text-center"
+    style={{
+      border: '1px solid rgba(193,18,31,0.2)',
+      background: 'rgba(193,18,31,0.05)',
+      color: 'var(--text-secondary)',
+      letterSpacing: '1px'
+    }}
+  >
+    <span
+      className="w-2 h-2 rounded-full bg-red-600 animate-pulse"
+      style={{ boxShadow: '0 0 8px #C1121F' }}
+    />
+
+    LIVE · REAL-TIME DONATION NETWORK · INDIA
+  </div>
+
+  {/* Main Heading */}
+  <h1
+    className="text-center font-black leading-none mb-6 animate-fadeInUp"
+    style={{
+      fontFamily: "'Playfair Display', serif",
+      fontSize: 'clamp(42px,11vw,110px)',
+      letterSpacing: '-3px',
+      animationDelay: '0.1s',
+      opacity: 0,
+      animationFillMode: 'forwards'
+    }}
+  >
+    Every Drop
+
+    <span
+      className="block relative"
+      style={{
+        color: '#C1121F',
+        textShadow:
+          '0 0 80px rgba(193,18,31,0.6), 0 0 160px rgba(193,18,31,0.2)',
+        fontStyle: 'italic'
+      }}
+    >
+      Saves a Life
+    </span>
+  </h1>
+
+  {/* Typing Text */}
+  <div
+    className="text-center mb-10 h-8 animate-fadeInUp"
+    style={{
+      animationDelay: '0.2s',
+      opacity: 0,
+      animationFillMode: 'forwards'
+    }}
+  >
+    <span
+      className="text-xs sm:text-sm md:text-base"
+      style={{
+        color: 'var(--text-secondary)',
+        fontWeight: 300,
+        letterSpacing: '0.5px'
+      }}
+    >
+      {typeText}
+
+      <span className="inline-block w-0.5 h-4 ml-0.5 bg-red-600 animate-pulse" />
+    </span>
+  </div>
+
+  {/* CTA Buttons */}
+  <div
+    className="flex flex-col sm:flex-row gap-4 justify-center mb-14 w-full sm:w-auto animate-fadeInUp"
+    style={{
+      animationDelay: '0.3s',
+      opacity: 0,
+      animationFillMode: 'forwards'
+    }}
+  >
+    <button
+      onClick={() => navigate('/register')}
+      className="px-8 sm:px-10 py-4 rounded-full font-semibold text-white relative overflow-hidden transition-all group text-sm md:text-base"
+      style={{
+        background: '#C1121F',
+        boxShadow: '0 0 30px rgba(193,18,31,0.5)'
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.boxShadow =
+          '0 0 60px rgba(193,18,31,0.9)';
+        e.currentTarget.style.transform = 'translateY(-3px)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.boxShadow =
+          '0 0 30px rgba(193,18,31,0.5)';
+        e.currentTarget.style.transform = 'none';
+      }}
+    >
+      🩸 Become a Donor
+    </button>
+
+    <button
+      onClick={() => navigate('/register')}
+      className="px-8 sm:px-10 py-4 rounded-full font-semibold transition-all text-sm md:text-base"
+      style={{
+        border: '1px solid var(--border-color)',
+        background: 'var(--bg-card)',
+        color: 'var(--text-secondary)'
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor =
+          'rgba(193,18,31,0.4)';
+        e.currentTarget.style.color =
+          'var(--text-primary)';
+        e.currentTarget.style.transform =
+          'translateY(-3px)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor =
+          'var(--border-color)';
+        e.currentTarget.style.color =
+          'var(--text-secondary)';
+        e.currentTarget.style.transform = 'none';
+      }}
+    >
+      🏥 Register Hospital
+    </button>
+  </div>
+
+  {/* Stats */}
+  <div
+    className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 w-full max-w-3xl animate-fadeInUp"
+    style={{
+      animationDelay: '0.4s',
+      opacity: 0,
+      animationFillMode: 'forwards'
+    }}
+  >
+    {[
+      { val: `${counts.lives.toLocaleString()}+`, label: 'LIVES SAVED' },
+      { val: `${counts.hospitals}+`, label: 'HOSPITALS' },
+      { val: `${counts.donors.toLocaleString()}+`, label: 'DONORS' },
+      { val: '24/7', label: 'AVAILABLE' },
+    ].map((s, i) => (
+      <div
+        key={i}
+        className="rounded-2xl p-4 text-center relative overflow-hidden transition-all group"
+        style={{
+          border: '1px solid var(--border-color)',
+          background: 'var(--bg-card)'
+        }}
+      >
+        <div
+          className="font-black text-2xl md:text-3xl mb-1"
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            color: '#C1121F'
+          }}
+        >
+          {s.val}
         </div>
 
-        <h1 className="text-center font-black leading-none mb-6 animate-fadeInUp"
-          style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(56px,9vw,110px)', letterSpacing: '-4px', animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
-          Every Drop
-          <span className="block relative"
-            style={{ color: '#C1121F', textShadow: '0 0 80px rgba(193,18,31,0.6), 0 0 160px rgba(193,18,31,0.2)', fontStyle: 'italic' }}>
-            Saves a Life
+        <div
+          className="text-[10px] sm:text-xs tracking-widest"
+          style={{
+            color: 'var(--text-muted)',
+            letterSpacing: '1.5px'
+          }}
+        >
+          {s.label}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* Live Ticker */}
+  <div
+    className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 md:gap-4 px-4 md:px-8 py-2 md:py-3 overflow-hidden"
+    style={{
+      borderTop: '1px solid var(--border-color)',
+      background: 'var(--nav-bg)',
+      backdropFilter: 'blur(20px)'
+    }}
+  >
+    <span
+      className="text-[10px] sm:text-xs font-bold tracking-widest shrink-0 flex items-center gap-2"
+      style={{
+        color: '#C1121F',
+        letterSpacing: '2px'
+      }}
+    >
+      <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+      LIVE
+    </span>
+
+    <div className="flex-1 overflow-hidden">
+      <div
+        className="flex gap-6 md:gap-10 whitespace-nowrap"
+        style={{
+          animation: 'tickerScroll 25s linear infinite'
+        }}
+      >
+        {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+          <span
+            key={i}
+            className="text-[10px] sm:text-xs shrink-0"
+            style={{
+              color: 'var(--text-muted)',
+              letterSpacing: '0.5px'
+            }}
+          >
+            {item.city} ·
+            <span style={{ color: 'rgba(193,18,31,0.7)' }}>
+              {' '}
+              {item.blood}
+            </span>{' '}
+            · {item.level}
           </span>
-        </h1>
+        ))}
+      </div>
+    </div>
+  </div>
 
-        <div className="text-center mb-10 h-8 animate-fadeInUp"
-          style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
-          <span style={{ color: 'var(--text-secondary)', fontSize: '15px', fontWeight: 300, letterSpacing: '0.5px' }}>
-            {typeText}
-            <span className="inline-block w-0.5 h-4 ml-0.5 bg-red-600 animate-pulse" />
-          </span>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14 animate-fadeInUp"
-          style={{ animationDelay: '0.3s', opacity: 0, animationFillMode: 'forwards' }}>
-          <button onClick={() => navigate('/register')}
-            className="px-10 py-4 rounded-full font-semibold text-white relative overflow-hidden transition-all group"
-            style={{ background: '#C1121F', boxShadow: '0 0 30px rgba(193,18,31,0.5)', fontSize: '15px' }}
-            onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 0 60px rgba(193,18,31,0.9), 0 0 120px rgba(193,18,31,0.3)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-            onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 0 30px rgba(193,18,31,0.5)'; e.currentTarget.style.transform = 'none'; }}>
-            🩸 Become a Donor
-          </button>
-          <button onClick={() => navigate('/register')}
-            className="px-10 py-4 rounded-full font-semibold transition-all"
-            style={{ border: '1px solid var(--border-color)', background: 'var(--bg-card)', color: 'var(--text-secondary)', fontSize: '15px' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(193,18,31,0.4)'; e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-color)'; e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.transform = 'none'; }}>
-            🏥 Register Hospital
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl animate-fadeInUp"
-          style={{ animationDelay: '0.4s', opacity: 0, animationFillMode: 'forwards' }}>
-          {[
-            { val: `${counts.lives.toLocaleString()}+`, label: 'LIVES SAVED' },
-            { val: `${counts.hospitals}+`, label: 'HOSPITALS' },
-            { val: `${counts.donors.toLocaleString()}+`, label: 'DONORS' },
-            { val: '24/7', label: 'AVAILABLE' },
-          ].map((s, i) => (
-            <div key={i} className="rounded-2xl p-4 text-center relative overflow-hidden transition-all group"
-              style={{ border: '1px solid var(--border-color)', background: 'var(--bg-card)' }}
-              onMouseEnter={e => { e.currentTarget.style.border = '1px solid rgba(193,18,31,0.3)'; e.currentTarget.style.transform = 'translateY(-4px)'; }}
-              onMouseLeave={e => { e.currentTarget.style.border = '1px solid var(--border-color)'; e.currentTarget.style.transform = 'none'; }}>
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
-                style={{ transitionDuration: '0.4s' }} />
-              <div className="font-black text-3xl mb-1"
-                style={{ fontFamily: "'Playfair Display', serif", color: '#C1121F', textShadow: '0 0 20px rgba(193,18,31,0.4)' }}>
-                {s.val}
-              </div>
-              <div className="text-xs tracking-widest"
-                style={{ color: 'var(--text-muted)', letterSpacing: '1.5px' }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Live Ticker */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-4 px-8 py-3 overflow-hidden"
-          style={{ borderTop: '1px solid var(--border-color)', background: 'var(--nav-bg)', backdropFilter: 'blur(20px)' }}>
-          <span className="text-xs font-bold tracking-widest shrink-0 flex items-center gap-2"
-            style={{ color: '#C1121F', letterSpacing: '2px' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-            LIVE
-          </span>
-          <div className="flex-1 overflow-hidden">
-            <div className="flex gap-10 whitespace-nowrap"
-              style={{ animation: 'tickerScroll 25s linear infinite' }}>
-              {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-                <span key={i} className="text-xs shrink-0"
-                  style={{ color: 'var(--text-muted)', letterSpacing: '0.5px' }}>
-                  {item.city} · <span style={{ color: 'rgba(193,18,31,0.7)' }}>{item.blood}</span> · {item.level}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+</section>
 
       {/* How It Works */}
       <section className="py-28 px-8 relative z-20">
