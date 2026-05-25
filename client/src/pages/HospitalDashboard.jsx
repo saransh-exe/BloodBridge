@@ -399,4 +399,4 @@ const particles = Array.from({ length: isMobile ? 30 : 120 }, (_, i) => ({
   );
 };
 
-export default DonorDashboard;
+export default HospitalDashboard;
